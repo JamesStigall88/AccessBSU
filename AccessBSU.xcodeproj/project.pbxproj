@@ -8,17 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		245ED89E2B7EB4FC00B5CEFA /* AccessBSUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245ED89D2B7EB4FC00B5CEFA /* AccessBSUApp.swift */; };
-		245ED8A02B7EB4FC00B5CEFA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245ED89F2B7EB4FC00B5CEFA /* ContentView.swift */; };
+		245ED8A02B7EB4FC00B5CEFA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245ED89F2B7EB4FC00B5CEFA /* MapView.swift */; };
 		245ED8A22B7EB4FE00B5CEFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 245ED8A12B7EB4FE00B5CEFA /* Assets.xcassets */; };
 		245ED8A52B7EB4FE00B5CEFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 245ED8A42B7EB4FE00B5CEFA /* Preview Assets.xcassets */; };
+		249004C62B87284B00F762E8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004C52B87284B00F762E8 /* Location.swift */; };
+		249004C92B872BE400F762E8 /* LocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004C82B872BE400F762E8 /* LocationType.swift */; };
+		249004CC2B87339400F762E8 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004CB2B87339400F762E8 /* MapViewModel.swift */; };
+		249004D02B8734F100F762E8 /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004CF2B8734F100F762E8 /* MapViewRepresentable.swift */; };
+		249004D22B8735C100F762E8 /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004D12B8735C100F762E8 /* MapViewCoordinator.swift */; };
+		249004D42B87382400F762E8 /* UINavigationController+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004D32B87382400F762E8 /* UINavigationController+EXT.swift */; };
+		249004DA2B87398B00F762E8 /* Color+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004D92B87398B00F762E8 /* Color+EXT.swift */; };
+		249004DC2B873FD300F762E8 /* MapViewLocationTypeCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249004DB2B873FD300F762E8 /* MapViewLocationTypeCarouselView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		245ED89A2B7EB4FC00B5CEFA /* AccessBSU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccessBSU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		245ED89D2B7EB4FC00B5CEFA /* AccessBSUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessBSUApp.swift; sourceTree = "<group>"; };
-		245ED89F2B7EB4FC00B5CEFA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		245ED89F2B7EB4FC00B5CEFA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		245ED8A12B7EB4FE00B5CEFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		245ED8A42B7EB4FE00B5CEFA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		249004C52B87284B00F762E8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		249004C82B872BE400F762E8 /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = "<group>"; };
+		249004CB2B87339400F762E8 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		249004CF2B8734F100F762E8 /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
+		249004D12B8735C100F762E8 /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
+		249004D32B87382400F762E8 /* UINavigationController+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+EXT.swift"; sourceTree = "<group>"; };
+		249004D92B87398B00F762E8 /* Color+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+EXT.swift"; sourceTree = "<group>"; };
+		249004DB2B873FD300F762E8 /* MapViewLocationTypeCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewLocationTypeCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +68,11 @@
 			isa = PBXGroup;
 			children = (
 				245ED89D2B7EB4FC00B5CEFA /* AccessBSUApp.swift */,
-				245ED89F2B7EB4FC00B5CEFA /* ContentView.swift */,
+				249004D32B87382400F762E8 /* UINavigationController+EXT.swift */,
+				249004D92B87398B00F762E8 /* Color+EXT.swift */,
+				249004CA2B87338A00F762E8 /* View Model */,
+				249004C42B87283000F762E8 /* Model */,
+				249004CD2B8734CB00F762E8 /* Views */,
 				245ED8A12B7EB4FE00B5CEFA /* Assets.xcassets */,
 				245ED8A32B7EB4FE00B5CEFA /* Preview Content */,
 			);
@@ -65,6 +85,50 @@
 				245ED8A42B7EB4FE00B5CEFA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		249004C42B87283000F762E8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				249004C72B872BD000F762E8 /* Location */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		249004C72B872BD000F762E8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				249004C52B87284B00F762E8 /* Location.swift */,
+				249004C82B872BE400F762E8 /* LocationType.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		249004CA2B87338A00F762E8 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				249004CB2B87339400F762E8 /* MapViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		249004CD2B8734CB00F762E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				249004CE2B8734D600F762E8 /* Map */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		249004CE2B8734D600F762E8 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				245ED89F2B7EB4FC00B5CEFA /* MapView.swift */,
+				249004DB2B873FD300F762E8 /* MapViewLocationTypeCarouselView.swift */,
+				249004D12B8735C100F762E8 /* MapViewCoordinator.swift */,
+				249004CF2B8734F100F762E8 /* MapViewRepresentable.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +201,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				245ED8A02B7EB4FC00B5CEFA /* ContentView.swift in Sources */,
+				249004DA2B87398B00F762E8 /* Color+EXT.swift in Sources */,
+				249004C92B872BE400F762E8 /* LocationType.swift in Sources */,
+				249004CC2B87339400F762E8 /* MapViewModel.swift in Sources */,
+				249004D42B87382400F762E8 /* UINavigationController+EXT.swift in Sources */,
+				249004D22B8735C100F762E8 /* MapViewCoordinator.swift in Sources */,
+				245ED8A02B7EB4FC00B5CEFA /* MapView.swift in Sources */,
+				249004C62B87284B00F762E8 /* Location.swift in Sources */,
+				249004DC2B873FD300F762E8 /* MapViewLocationTypeCarouselView.swift in Sources */,
+				249004D02B8734F100F762E8 /* MapViewRepresentable.swift in Sources */,
 				245ED89E2B7EB4FC00B5CEFA /* AccessBSUApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +352,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +382,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
