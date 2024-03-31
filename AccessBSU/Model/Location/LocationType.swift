@@ -9,11 +9,13 @@ import Foundation
 import UIKit
 import SwiftUI
 
-enum LocationType: String, Identifiable, Codable, CaseIterable {
+enum LocationType: String, Identifiable, Codable, CaseIterable, Comparable {
+    
     case residence      = "Residence"
+    case library        = "Library"
+    case complex        = "Complex"
     case studentCenter  = "Student Center"
     case facility       = "Facility"
-    case parkingLot     = "Parking Lot"
     case recreation     = "Recreation"
     case transit        = "Transit"
     
@@ -31,16 +33,22 @@ enum LocationType: String, Identifiable, Codable, CaseIterable {
             return .red
         case .facility:
             return .yellow
-        case .parkingLot:
-            return .blue
         case .recreation:
             return .green
         case .transit:
             return .blue
+        case .complex:
+            return .teal
+        case .library:
+            return .yellow
         }
     }
     
     var annotationColor: UIColor {
         return UIColor(self.color)
+    }
+    
+    static func < (lhs: LocationType, rhs: LocationType) -> Bool {
+        return lhs.rawValue < rhs.rawValue
     }
 }
