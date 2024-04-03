@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MapView: View {
     
+    @State private var sheetDetent: PresentationDetent = .height(100)
+    @State private var isSearching = false
+    
     @StateObject private var mapVM = MapViewModel()
     
     var body: some View {
@@ -16,14 +19,17 @@ struct MapView: View {
             ZStack(alignment: .top) {
                 MapViewRepresentable()
             }
-            .navigationTitle("Issues Map")
-            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea()
         }
         .tint(.label)
-        .ignoresSafeArea()
         .environmentObject(mapVM)
-        .sheet(isPresented: $mapVM.isShowingLocationsView) {
+        .sheet(isPresented: .constant(true)) {
             MapLocationsView()
+        }
+        .onChange(of: isSearching) { _, isSearching in
+            if isSearching {
+                sheetDetent = .large
+            }
         }
     }
 }
