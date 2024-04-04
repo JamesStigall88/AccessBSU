@@ -10,8 +10,11 @@ import MapKit
 import SwiftUI
 
 struct MapViewRepresentable: UIViewControllerRepresentable {
+    
+    @ObservedObject var mapVM: MapViewModel
+    
     func makeUIViewController(context: Context) -> UIViewController {
-        return MapViewController()
+        return MapViewController(mapVM: mapVM)
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
@@ -23,22 +26,28 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
         let mapView = MKMapView()
         mapView.region = MKCoordinateRegion(center: .bowieStateUniversity, span: .init(latitudeDelta: 0.015, longitudeDelta: 0.015))
         mapView.showsUserLocation = true
+        mapView.showsCompass = false
         mapView.layoutMargins = .init(top: 0, left: 0, bottom: 100, right: 0)
         return mapView
     }()
     
-    private lazy var locationButton: UIButton = {
-        let button = UIButton()
-        button.frame.size = .init(width: 55, height: 55)
-        button.backgroundColor = .systemBlue
-        button.setImage(UIImage(systemName: "location")?.resized(toWidth: 30), for: .normal)
-        button.contentMode = .scaleAspectFit
-        button.tintColor = .white
-        return button
-    }()
+    weak var mapVM: MapViewModel?
+    
+    init(mapVM: MapViewModel) {
+        self.mapVM = mapVM
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.mapVM?.mapView = self.mapView
+        
+        mapView.register(LocationClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: "D")
         mapView.delegate = self
         
         let annotations = Location.universityLocations().map { location in
@@ -47,13 +56,14 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
         
         mapView.addAnnotations(annotations)
         
+        CLLocationManager().requestWhenInUseAuthorization()
+        
+        let compass = MKCompassButton(mapView: mapView)
         view.addSubview(mapView)
-        view.addSubview(locationButton)
+        view.addSubview(compass)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        locationButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        locationButton.layer.cornerRadius = locationButton.frame.width / 2
+        compass.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             //Map View Constraints
@@ -61,20 +71,26 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            //Location Button Constraints
-            locationButton.widthAnchor.constraint(equalToConstant: 55),
-            locationButton.heightAnchor.constraint(equalToConstant: 55),
-            locationButton.bottomAnchor.constraint(equalTo: mapView.layoutMarginsGuide.bottomAnchor, constant: -10),
-            locationButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 8),
+
+            compass.leadingAnchor.constraint(equalTo: mapView.layoutMarginsGuide.leadingAnchor, constant: 13),
+            compass.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor)
         ])
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
         if let locationAnnotation = annotation as? LocationAnnotation {
-            let annotationView = MKPinAnnotationView(annotation: locationAnnotation, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-            annotationView.canShowCallout = true
-            annotationView.detailCalloutAccessoryView = UIView()
+            let annotationView = MKMarkerAnnotationView(annotation: locationAnnotation, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            annotationView.titleVisibility = .hidden
+            annotationView.subtitleVisibility = .adaptive
+            annotationView.clusteringIdentifier = LocationAnnotation.ClusterIdentifier
+            annotationView.glyphImage = locationAnnotation.symbol
+            annotationView.markerTintColor = locationAnnotation.annotationColor
+            return annotationView
+        }
+        
+        if let clusterAnnotation = annotation as? MKClusterAnnotation {
+            let annotationView = MKMarkerAnnotationView(annotation: clusterAnnotation, reuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+            annotationView.glyphTintColor = .white
             return annotationView
         }
         
@@ -84,18 +100,16 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [any MKAnnotation]) -> MKClusterAnnotation {
         return MKClusterAnnotation(memberAnnotations: memberAnnotations)
     }
-}
-
-extension UIImage {
-    func resized(toWidth width: CGFloat) -> UIImage? {
-        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-        return UIGraphicsImageRenderer(size: canvas).image { _ in
-            draw(in: CGRect(origin: .zero, size: canvas))
-        }.withTintColor(.white)
+    
+    @objc
+    func moveToUserLocation() {
+        if let userLocation = CLLocationManager().location {
+            mapView.setCenter(userLocation.coordinate, animated: true)
+        }
     }
 }
 
-@available(iOS, introduced: 17.0)
-#Preview {
-    MapViewController()
-}
+//@available(iOS, introduced: 17.0)
+//#Preview {
+//    MapViewController()
+//}

@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Location: Identifiable, Codable, Comparable {
+struct Location: Identifiable, Codable, Comparable, Hashable {
     
     init(name: String, type: LocationType, coordinates: Coordinates) {
         self.name        = name
@@ -36,7 +36,8 @@ struct Location: Identifiable, Codable, Comparable {
             Location(name: "Theodore McKeldin Gymnasium", type: .recreation, coordinates: .init(latitude: 39.02056, longitude: -76.75926)),
             Location(name: "Harriet Tubman Residence Hall", type: .residence, coordinates: .init(latitude: 39.01996, longitude: -76.75985)),
             Location(name: "James E. Proctor Jr. Building", type: .facility, coordinates: .init(latitude: 39.01930, longitude: -76.76045)),
-            Location(name: "Student Center", type: .studentCenter, coordinates: .init(latitude: 39.01888, longitude: -76.75880)),
+            Location(name: "Student Center & Cafe", type: .studentCenter, coordinates: .init(latitude: 39.01756, longitude: -76.75813)),
+            Location(name: "Computer Science Building", type: .facility, coordinates: .init(latitude: 39.01718, longitude: -76.75944)),
             Location(name: "Henry Administration Building", type: .facility, coordinates: .init(latitude: 39.01840, longitude: -76.76072)),
             Location(name: "Thurgood Marshall Library", type: .library, coordinates: .init(latitude: 39.01803, longitude: -76.75979)),
             Location(name: "Martin Luther King Jr. Building", type: .facility, coordinates: .init(latitude: 39.01771, longitude: -76.76218)),
@@ -48,7 +49,7 @@ struct Location: Identifiable, Codable, Comparable {
             Location(name: "Facilities Management", type: .facility, coordinates: .init(latitude: 39.01792, longitude: -76.75706)),
             Location(name: "Charlotte Robinson Hall", type: .facility, coordinates: .init(latitude: 39.01640, longitude: -76.75991)),
             Location(name: "Fine and Performing Arts Center", type: .facility, coordinates: .init(latitude: 39.01595, longitude: -76.75890)),
-            Location(name: "Bowie State Metro Station", type: .transit, coordinates: .init(latitude: 39.01748, longitude: -76.76430))
+            Location(name: "Bowie State MARCC Station", type: .transit, coordinates: .init(latitude: 39.01748, longitude: -76.76430))
         ]
     }
     
@@ -67,7 +68,7 @@ struct Location: Identifiable, Codable, Comparable {
 
 extension Location {
     
-    struct Coordinates: Codable {
+    struct Coordinates: Codable, Hashable {
         
         //Latitude should be written as a positive double
         //Longitude should be written as a negative double

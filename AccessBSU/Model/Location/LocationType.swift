@@ -25,6 +25,25 @@ enum LocationType: String, Identifiable, Codable, CaseIterable, Comparable {
         return self.rawValue
     }
     
+    var symbol: String {
+        switch self {
+        case .residence:
+            return "house.fill"
+        case .library:
+            return "books.vertical"
+        case .complex:
+            return "sportscourt"
+        case .studentCenter:
+            return "fork.knife"
+        case .facility:
+            return "building.2.crop.circle.fill"
+        case .recreation:
+            return "gamecontroller.fill"
+        case .transit:
+            return "bus.doubledecker.fill"
+        }
+    }
+    
     var color: Color {
         switch self {
         case .residence:
@@ -32,15 +51,15 @@ enum LocationType: String, Identifiable, Codable, CaseIterable, Comparable {
         case .studentCenter:
             return .red
         case .facility:
-            return .yellow
+            return .orange
         case .recreation:
-            return .green
+            return .purple
         case .transit:
             return .blue
         case .complex:
             return .teal
         case .library:
-            return .yellow
+            return .orange
         }
     }
     

@@ -22,8 +22,8 @@ final class LocationAnnotation: NSObject, MKAnnotation {
         return location.coordinates.center
     }
     
-    var title: String? {
-        return location.name
+    var symbol: UIImage? {
+        return UIImage(systemName: location.type.symbol)
     }
     
     var annotationColor: UIColor {
@@ -31,7 +31,7 @@ final class LocationAnnotation: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        return location.type.title
+        return "\(location.name) \n\n (\(location.type.title))"
     }
     
     static var testAnnotation: LocationAnnotation {

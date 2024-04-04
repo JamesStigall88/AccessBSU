@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MapView: View {
     
@@ -17,19 +18,23 @@ struct MapView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                MapViewRepresentable()
+                MapViewRepresentable(mapVM: mapVM)
+                    .ignoresSafeArea()
+                MapHeaderView()
             }
-            .ignoresSafeArea()
         }
         .tint(.label)
         .environmentObject(mapVM)
         .sheet(isPresented: .constant(true)) {
-            MapLocationsView()
+            MapLocationsView(locationButtonSelected: mapVM.goToUsersLocation, locationSelected: mapVM.showLocationsOnMap(_:))
         }
         .onChange(of: isSearching) { _, isSearching in
             if isSearching {
                 sheetDetent = .large
             }
+        }
+        .onAppear {
+            CLLocationManager().requestAlwaysAuthorization()
         }
     }
 }
