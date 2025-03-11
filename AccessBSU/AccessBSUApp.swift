@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+import Firebase
 
 @main
 struct AccessBSUApp: App {
@@ -14,10 +16,29 @@ struct AccessBSUApp: App {
         UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
         UINavigationBar.appearance().topItem?.backButtonDisplayMode = .minimal
     }
+	
+	@UIApplicationDelegateAdaptor(AppDelete.self) var appDelegate
+	
+	@StateObject private var authVM = AuthViewModel()
     
     var body: some Scene {
         WindowGroup {
-            MapView()
+			switch authVM.authState {
+			case .signedIn:
+				MapView()
+			case .signedOut:
+				AuthSignInView()
+					.environmentObject(authVM)
+			}
         }
     }
+}
+
+
+final class AppDelete: UIResponder, UIApplicationDelegate {
+	
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+		FirebaseApp.configure()
+		return true
+	}
 }
