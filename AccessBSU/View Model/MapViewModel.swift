@@ -37,6 +37,7 @@ final class MapViewModel: NSObject, ObservableObject {
                 return LocationAnnotation(location: location)
             }
             mapView.addAnnotations(annotations)
+			mapView.setVisibleMapRect(locations.annotationMapRect(mapView: mapView), animated: true)
         }
     }
 }

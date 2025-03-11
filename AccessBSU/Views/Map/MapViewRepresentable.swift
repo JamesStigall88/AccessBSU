@@ -24,6 +24,7 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
     
     private lazy var mapView: MKMapView = {
         let mapView = MKMapView()
+		mapView.tintColor = .systemBlue
         mapView.region = MKCoordinateRegion(center: .bowieStateUniversity, span: .init(latitudeDelta: 0.015, longitudeDelta: 0.015))
         mapView.showsUserLocation = true
         mapView.showsCompass = false
@@ -47,7 +48,7 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
         
         self.mapVM?.mapView = self.mapView
         
-        mapView.register(LocationClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: "D")
+		mapView.register(ClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         mapView.delegate = self
         
         let annotations = Location.universityLocations().map { location in
@@ -72,8 +73,8 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            compass.leadingAnchor.constraint(equalTo: mapView.layoutMarginsGuide.leadingAnchor, constant: 13),
-            compass.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor)
+            compass.bottomAnchor.constraint(equalTo: mapView.layoutMarginsGuide.bottomAnchor, constant: -7),
+            compass.trailingAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.trailingAnchor, constant: -5)
         ])
     }
     
@@ -89,8 +90,8 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         if let clusterAnnotation = annotation as? MKClusterAnnotation {
-            let annotationView = MKMarkerAnnotationView(annotation: clusterAnnotation, reuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
-            annotationView.glyphTintColor = .white
+			let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+			annotationView.markerTintColor = (clusterAnnotation.memberAnnotations as? [LocationAnnotation])?.allSatisfyEventType() ?? .systemRed
             return annotationView
         }
         
@@ -100,6 +101,12 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [any MKAnnotation]) -> MKClusterAnnotation {
         return MKClusterAnnotation(memberAnnotations: memberAnnotations)
     }
+	
+	func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
+		if let clusterAnnotation = annotation as? MKClusterAnnotation {
+			mapView.setVisibleMapRect(clusterAnnotation.annotationMapRect(mapView: mapView), animated: true)
+		}
+	}
     
     @objc
     func moveToUserLocation() {
@@ -107,6 +114,57 @@ fileprivate final class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.setCenter(userLocation.coordinate, animated: true)
         }
     }
+}
+
+final class ClusterAnnotationView: MKMarkerAnnotationView {
+	
+	
+}
+
+extension MKClusterAnnotation {
+	
+	func annotationMapRect(mapView: MKMapView) -> MKMapRect {
+		var clusterRect = MKMapRect.null
+
+		for annotation in self.memberAnnotations {
+			let point = MKMapPoint(annotation.coordinate)
+			let pointRect = MKMapRect(x: point.x, y: point.y, width: 0, height: 0)
+			clusterRect = clusterRect.union(pointRect)
+		}
+		
+		let edgePadding = UIEdgeInsets(top: 100, left: 125, bottom: 100, right: 125)
+		clusterRect = mapView.mapRectThatFits(clusterRect, edgePadding: edgePadding)
+		return clusterRect
+	}
+}
+
+extension [Location] {
+	
+	func annotationMapRect(mapView: MKMapView) -> MKMapRect {
+		var clusterRect = MKMapRect.null
+
+		for annotation in self {
+			let point = MKMapPoint(annotation.coordinates.center)
+			let pointRect = MKMapRect(x: point.x, y: point.y, width: 0, height: 0)
+			clusterRect = clusterRect.union(pointRect)
+		}
+		
+		let edgePadding = UIEdgeInsets(top: 100, left: 125, bottom: 100, right: 125)
+		clusterRect = mapView.mapRectThatFits(clusterRect, edgePadding: edgePadding)
+		return clusterRect
+	}
+}
+
+extension [LocationAnnotation] {
+	func allSatisfyEventType() -> UIColor {
+		let eventTypes: Set<LocationType> = Set(self.map({$0.location.type}))
+		
+		guard (eventTypes.count == 1), let eventType = eventTypes.first else {
+			return .systemRed
+		}
+		
+		return eventType.annotationColor
+	}
 }
 
 //@available(iOS, introduced: 17.0)

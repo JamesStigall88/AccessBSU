@@ -76,11 +76,14 @@ struct IssuesLocationMapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapViewCoordinator {
-        return MapViewCoordinator(parent: self)
+		return MapViewCoordinator(parent: $location)
     }
     
-    func updateUIView(_ uiView: MKMapView, context: Context) {}
-    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+		if let selectedAnnotation = uiView.selectedAnnotations.first as? LocationAnnotation {
+			
+		}
+	}
     
     typealias UIViewType = MKMapView
     
@@ -88,10 +91,10 @@ struct IssuesLocationMapView: UIViewRepresentable {
         
         weak var previousAnnotationView: LocationIssueAnnotationView?
         
-        private var parentView: IssuesLocationMapView
+        private var parentView: Location?
         
-        init(parent: IssuesLocationMapView) {
-            self.parentView = parent
+        init(parent: Binding<Location?>) {
+			self.parentView = parent.wrappedValue
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
@@ -135,7 +138,7 @@ struct IssuesLocationMapView: UIViewRepresentable {
             if let locationAnnotation = view.annotation as? LocationAnnotation {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 mapView.setCenter(locationAnnotation.coordinate, animated: true)
-                self.parentView.location = locationAnnotation.location
+				self.parentView = locationAnnotation.location
                 self.previousAnnotationView?.displayAsUnSelected()
                 annotationView.displayAsSelected()
             }
@@ -218,7 +221,7 @@ final class ComposeLocationMapInvertRenderer: MKOverlayRenderer {
         let excludePath: UIBezierPath = UIBezierPath(roundedRect: CGRect(x: regionRect.origin.x, y: regionRect.origin.y, width: regionRect.size.width, height: regionRect.size.height), cornerRadius: CGFloat(regionRect.size.width) / 2)
         path.append(excludePath)
         
-        context.setFillColor(UIColor.purple.withAlphaComponent(0.2).cgColor);
+        context.setFillColor(UIColor.purple.withAlphaComponent(0.4).cgColor);
         context.addPath(path.cgPath);
         context.fillPath(using: .evenOdd)
     }

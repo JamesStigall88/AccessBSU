@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2417BC402BC975CD00A7B616 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2417BC3F2BC975CD00A7B616 /* Launch Screen.storyboard */; };
 		244362CF2BBCC67C0096C466 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244362CE2BBCC67C0096C466 /* CLLocation.swift */; };
 		244362D22BBCCDF90096C466 /* MapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244362D12BBCCDF90096C466 /* MapHeaderView.swift */; };
 		244362D42BBCE1830096C466 /* MapLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244362D32BBCE1830096C466 /* MapLocationsView.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2417BC3F2BC975CD00A7B616 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		244362CE2BBCC67C0096C466 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		244362D02BBCC8CA0096C466 /* AccessBSU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AccessBSU.entitlements; sourceTree = "<group>"; };
 		244362D12BBCCDF90096C466 /* MapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHeaderView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				24B0B2DD2BC094AC00A4C8D7 /* Info.plist */,
+				2417BC3F2BC975CD00A7B616 /* Launch Screen.storyboard */,
 				244362D02BBCC8CA0096C466 /* AccessBSU.entitlements */,
 				245ED89D2B7EB4FC00B5CEFA /* AccessBSUApp.swift */,
 				24B0B2972BB910E600A4C8D7 /* MKMapView */,
@@ -227,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2417BC402BC975CD00A7B616 /* Launch Screen.storyboard in Resources */,
 				245ED8A52B7EB4FE00B5CEFA /* Preview Assets.xcassets in Resources */,
 				245ED8A22B7EB4FE00B5CEFA /* Assets.xcassets in Resources */,
 			);
@@ -394,11 +398,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AccessBSU/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AccessBSU;
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We will utilize your location in order to locate you on the map view.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -429,11 +436,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AccessBSU/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AccessBSU;
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We will utilize your location in order to locate you on the map view.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be utilize to locate yourself, and perform other additional tasks";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
